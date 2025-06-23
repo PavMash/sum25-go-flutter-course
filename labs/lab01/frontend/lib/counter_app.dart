@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// Basically, that is the other page.
 class CounterApp extends StatefulWidget {
   const CounterApp({Key? key}) : super(key: key);
 

@@ -41,7 +41,7 @@ func NewUser(name string, age int, email string) (*User, error) {
 	return &newUser, nil
 }
 
-// Validate checks if the user data is valid
+// Validate checks if the user data is valid.
 func (u *User) Validate() error {
 	if u.Name == "" {
 		return ErrEmptyName
