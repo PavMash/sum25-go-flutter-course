@@ -54,37 +54,46 @@ class MyHomePage extends StatelessWidget {
         // the App.build method, and use it to set our appbar title.
         title: const Text('Lab 01 Demo'),
       ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
+            const Text(
               'Profile Card Example',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8),
-            ProfileCard(
+            const SizedBox(height: 8),
+            const ProfileCard(
               name: 'John Doe',
               email: 'john@example.com',
               age: 30,
               //'https://example.com/avatar.jpg'
               avatarUrl: null,
             ),
-            SizedBox(height: 24),
-            Text(
+            const SizedBox(height: 24),
+            const Text(
               'Counter App Example',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8),
-            CounterApp(),
-            SizedBox(height: 24),
-            Text(
+            const SizedBox(height: 8),
+            ElevatedButton(
+              key: const  Key('navigateToCounter'),
+              child : const Text ("Counter"),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CounterApp()),
+                );
+              }
+            ),
+            const SizedBox(height: 24),
+            const Text(
               'Registration Form Example',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8),
-            RegistrationForm(),
+            const SizedBox(height: 8),
+            const RegistrationForm(),
           ],
         ),
       ),
