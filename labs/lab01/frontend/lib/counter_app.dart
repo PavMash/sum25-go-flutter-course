@@ -10,48 +10,65 @@ class CounterApp extends StatefulWidget {
 class _CounterAppState extends State<CounterApp> {
   int _counter = 0;
 
-  void _incrementCounter() {
-    // TODO: Implement this function
+  void _increment() {
+    setState(() {
+      _counter++;
+    });
   }
 
-  void _decrementCounter() {
-    // TODO: Implement this function
+  void _decrement() {
+    setState(() {
+      _counter--;
+    });
   }
 
-  void _resetCounter() {
-    // TODO: Implement this function
+  void _reset() {
+    setState(() {
+      _counter = 0;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Counter App'),
-        actions: [
-          // TODO: add a refresh button with Icon(Icons.refresh)
-        ],
+    return Container(
+      width : 100,
+      height : 400,
+      padding : const EdgeInsets.all(16),
+      margin : const EdgeInsets.symmetric(vertical : 8),
+      decoration : const BoxDecoration(
+        color : Colors.lightGreenAccent,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              '$_counter',
-              style: const TextStyle(fontSize: 48),
+      child : Column (
+        children : [
+          Text (
+            "$_counter",
+            style : const TextStyle(
+              color : Colors.white,
+              fontSize: 24,
             ),
-            const SizedBox(height: 32),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // TODO: add a decrement button with Icon(Icons.remove) and onPressed: _decrementCounter
-                
-                const SizedBox(width: 32),
-                // TODO: add a increment button with Icon(Icons.add) and onPressed: _incrementCounter
-                
-              ],
-            ),
-          ],
-        ),
+          ),
+
+          const SizedBox(height : 8),
+          IconButton(
+            onPressed : _increment,
+            icon: Icon(Icons.add),
+            tooltip: 'Increment',
+          ),
+
+          const SizedBox(height : 8),
+          IconButton(
+            onPressed : _decrement,
+            icon: Icon(Icons.remove),
+            tooltip: 'Decrement',
+          ),
+
+          const SizedBox(height : 8),
+          IconButton(
+            onPressed : _reset,
+            icon: Icon(Icons.refresh),
+            tooltip: 'Reset',
+          ),
+        ],
       ),
     );
   }
