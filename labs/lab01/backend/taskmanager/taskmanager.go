@@ -38,7 +38,7 @@ func NewTaskManager() *TaskManager {
 	return pointerToManager
 }
 
-// AddTask adds a new task to the manager
+// AddTask adds a new task to the manager.
 func (tm *TaskManager) AddTask(title, description string) (*Task, error) {
 	if title == "" {
 		return nil, ErrEmptyTitle

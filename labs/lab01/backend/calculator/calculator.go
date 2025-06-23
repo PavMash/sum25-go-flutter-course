@@ -5,7 +5,7 @@ import (
 	"strconv"
 )
 
-// ErrDivisionByZero is returned when attempting to divide by zero
+// ErrDivisionByZero is returned when attempting to divide by zero.
 var ErrDivisionByZero = errors.New("division by zero")
 
 // Add returns the sum of two numbers
