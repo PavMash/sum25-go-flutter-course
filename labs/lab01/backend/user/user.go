@@ -39,8 +39,26 @@ func NewUser(name string, age int, email string) (*User, error) {
 	}
 
 	return &newUser, nil
+	if name == "" {
+		return nil, ErrEmptyName
+	}
+	if 0 > age || 150 < age {
+		return nil, ErrInvalidAge
+	}
+	if !IsValidEmail(email) {
+		return nil, ErrInvalidEmail
+	}
+
+	newUser := User{
+		Name:  name,
+		Age:   age,
+		Email: email,
+	}
+
+	return &newUser, nil
 }
 
+// Validate checks if the user data is valid.
 // Validate checks if the user data is valid.
 func (u *User) Validate() error {
 	if u.Name == "" {
@@ -66,16 +84,13 @@ func (u *User) String() string {
 func NewUser(name string, age int, email string) (*User, error) {
 	// TODO: Implement this function
 	return nil, nil
+	var strRepr = "Name = " + u.Name +
+		", Age = " + strconv.Itoa(u.Age) + ", Email = " + u.Email
+	return strRepr
 }
 
 // IsValidEmail checks if the email format is valid
 // You can use regexp.MustCompile to compile the email regex
 func IsValidEmail(email string) bool {
 	return strings.Contains(email, "@") && strings.Contains(email, ".")
-}
-
-// IsValidAge checks if the age is valid, returns false if the age is not between 0 and 150
-func IsValidAge(age int) bool {
-	// TODO: Implement this function
-	return false
 }
