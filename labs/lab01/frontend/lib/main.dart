@@ -65,7 +65,11 @@ class MyHomePage extends StatelessWidget {
               child: SingleChildScrollView(
                 padding: EdgeInsets.all(16.0),
                 // TODO: change to ProfileCard
-                child: SizedBox.shrink(),
+                child: ProfileCard(
+                  name: 'Pavel',
+                  email: 'Pavel@example.com',
+                  age: 19,
+                ),
               ),
             ),
             CounterApp(),

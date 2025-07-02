@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// Basically, that is the other page.
 class CounterApp extends StatefulWidget {
   const CounterApp({Key? key}) : super(key: key);
 
@@ -11,19 +10,19 @@ class CounterApp extends StatefulWidget {
 class _CounterAppState extends State<CounterApp> {
   int _counter = 0;
 
-  void _increment() {
+  void _incrementCounter() {
     setState(() {
       _counter++;
     });
   }
 
-  void _decrement() {
+  void _decrementCounter() {
     setState(() {
       _counter--;
     });
   }
 
-  void _reset() {
+  void _resetCounter() {
     setState(() {
       _counter = 0;
     });
@@ -31,48 +30,42 @@ class _CounterAppState extends State<CounterApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold (
-      body:Container(
-        width : 100,
-        height : 400,
-        padding : const EdgeInsets.all(16),
-        margin : const EdgeInsets.symmetric(vertical : 8),
-        decoration : const BoxDecoration(
-          color : Colors.lightGreenAccent,
-        ),
-        child : Column (
-          children : [
-            Text (
-              "$_counter",
-              style : const TextStyle(
-                color : Colors.white,
-                fontSize: 24,
-              ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Counter App'),
+        actions: [
+          IconButton(
+            onPressed : _resetCounter,
+            icon : const Icon(Icons.refresh)
+          )
+        ],
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              '$_counter',
+              style: const TextStyle(fontSize: 48),
             ),
-
-            const SizedBox(height : 8),
-            IconButton(
-              onPressed : _increment,
-              icon: Icon(Icons.add),
-              tooltip: 'Increment',
-            ),
-
-            const SizedBox(height : 8),
-            IconButton(
-              onPressed : _decrement,
-              icon: Icon(Icons.remove),
-              tooltip: 'Decrement',
-            ),
-
-            const SizedBox(height : 8),
-            IconButton(
-              onPressed : _reset,
-              icon: Icon(Icons.refresh),
-              tooltip: 'Reset',
+            const SizedBox(height: 32),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                FloatingActionButton(
+                  onPressed : _decrementCounter,
+                  child : const Icon(Icons.remove)
+                ),
+                const SizedBox(width: 32),
+                FloatingActionButton(
+                  onPressed : _incrementCounter,
+                  child : const Icon(Icons.add)
+                )
+              ],
             ),
           ],
         ),
-      )
+      ),
     );
   }
 }

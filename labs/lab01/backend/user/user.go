@@ -2,8 +2,8 @@ package user
 
 import (
 	"errors"
+	"regexp"
 	"strconv"
-	"strings"
 )
 
 // Predefined errors
@@ -20,77 +20,57 @@ type User struct {
 	Email string
 }
 
-// NewUser creates a new user with validation
-func NewUser(name string, age int, email string) (*User, error) {
-	if name == "" {
-		return nil, ErrEmptyName
-	}
-	if 0 > age || 150 < age {
-		return nil, ErrInvalidAge
-	}
-	if !IsValidEmail(email) {
-		return nil, ErrInvalidEmail
-	}
-
-	newUser := User{
-		Name:  name,
-		Age:   age,
-		Email: email,
-	}
-
-	return &newUser, nil
-	if name == "" {
-		return nil, ErrEmptyName
-	}
-	if 0 > age || 150 < age {
-		return nil, ErrInvalidAge
-	}
-	if !IsValidEmail(email) {
-		return nil, ErrInvalidEmail
-	}
-
-	newUser := User{
-		Name:  name,
-		Age:   age,
-		Email: email,
-	}
-
-	return &newUser, nil
-}
-
-// Validate checks if the user data is valid.
-// Validate checks if the user data is valid.
+// Validate checks if the user data is valid, returns an error for each invalid field
 func (u *User) Validate() error {
-	if u.Name == "" {
-		return ErrEmptyName
+	if !IsValidName(u.Name) {
+		return ErrInvalidName
 	}
-	if 0 > u.Age || 150 < u.Age {
+
+	if !IsValidAge(u.Age) {
 		return ErrInvalidAge
 	}
+
 	if !IsValidEmail(u.Email) {
 		return ErrInvalidEmail
 	}
+
 	return nil
 }
 
 // String returns a string representation of the user, formatted as "Name: <name>, Age: <age>, Email: <email>"
 func (u *User) String() string {
-	var strRepr = "Name = " + u.Name +
-		", Age = " + strconv.Itoa(u.Age) + ", Email = " + u.Email
-	return strRepr
+	return "Name: " + u.Name + ", Age: " +
+		strconv.FormatInt(int64(u.Age), 10) + ", Email: " + u.Email
 }
 
 // NewUser creates a new user with validation, returns an error if the user is not valid
 func NewUser(name string, age int, email string) (*User, error) {
-	// TODO: Implement this function
-	return nil, nil
-	var strRepr = "Name = " + u.Name +
-		", Age = " + strconv.Itoa(u.Age) + ", Email = " + u.Email
-	return strRepr
+	newUser := User{
+		Name:  name,
+		Age:   age,
+		Email: email,
+	}
+
+	err := newUser.Validate()
+	if err != nil {
+		return nil, err
+	}
+	return &newUser, err
 }
 
 // IsValidEmail checks if the email format is valid
 // You can use regexp.MustCompile to compile the email regex
 func IsValidEmail(email string) bool {
-	return strings.Contains(email, "@") && strings.Contains(email, ".")
+	emailRegexp := regexp.MustCompile(`^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`)
+	return emailRegexp.MatchString(email)
+}
+
+// IsValidName checks if the name is valid, returns false if the name is empty or longer than 30 characters
+func IsValidName(name string) bool {
+	return (name != "") && (len(name) <= 30)
+}
+
+// IsValidAge checks if the age is valid, returns false if the age is not between 0 and 150
+func IsValidAge(age int) bool {
+	return (age > 0) && (age < 150)
 }
