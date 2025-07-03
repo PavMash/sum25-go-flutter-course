@@ -33,7 +33,7 @@ class _ChatScreenState extends State<ChatScreen> {
         onError: (error) => setState(() => _error = error.toString()),
       );
     } catch (e) {
-      setState(() => _error = 'Connection failed: ${e.toString()}');
+      setState(() => _error = 'Connection error: ${e.toString()}');
     } finally {
       setState(() => _isLoading = false);
     }
@@ -80,7 +80,11 @@ Widget build(BuildContext context) {
               }
               
               if (_error != null && _messages.isEmpty) {
-                return Center(child: Text('Error: $_error'));
+                return Center(
+                  child: RichText(
+                    text : TextSpan(text : 'Error: $_error')
+                  )
+                );
               }
               
               return ListView.builder(
